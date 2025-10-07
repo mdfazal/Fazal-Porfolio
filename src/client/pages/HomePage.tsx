@@ -2,6 +2,21 @@
 import { useState } from 'react';
 import { ThemeToggle } from '@/client/components/ThemeToggle';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import { time, timeStamp } from 'console';
+import { title } from 'process';
+import { url } from 'inspector';
+
+// Define types for the ExperienceItem component
+interface ExperienceItemProps {
+  title: string;
+  position: string;
+  timespan: string;
+  description?: string;
+  details?: string[];
+  borderColor: string;
+  url?: string;
+  imageURL?: string;
+}
 
 // Generic ExperienceItem component for collapsible entries
 function ExperienceItem({
@@ -13,59 +28,83 @@ function ExperienceItem({
   borderColor,
   url,
   imageURL
-}) {
+}: ExperienceItemProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className={`border-l-4 ${borderColor} pl-6`}>
-      <div className="flex items-start justify-between mb-2">
-        <div className="flex-1">
-          <div className='flex items-center gap-2 mb-2'>
+    <div className={`border-l-4 ${borderColor} pl-3 sm:pl-6`}>
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-0 mb-3">
+        <div className="flex-1 flex flex-col items-start">
+          <div className='flex items-start gap-2 mb-2'>
             {imageURL && (
-              <img src={imageURL} alt={title} className="w-6 h-6 object-contain rounded " />
+              <img src={imageURL} alt={title} className="w-5 h-5 sm:w-6 sm:h-6 object-contain rounded flex-shrink-0 mt-0.5" />
             )}
-            <h3 className="text-xl font-semibold text-theme-primary">
-              {url ? (
-                <a href={url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">
-                  {title}
-                </a>
-              ) : (
-                title
-              )}
-            </h3>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-lg sm:text-xl font-semibold text-theme-primary font-display leading-tight">
+                {url ? (
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">
+                    {title}
+                  </a>
+                ) : (
+                  title
+                )}
+              </h3>
+            </div>
           </div>
 
-          <p className="text-lg text-theme-secondary">{position}</p>
+          <p className="text-base sm:text-lg text-theme-secondary font-body  ">{position}</p>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="text-sm text-theme-secondary whitespace-nowrap">{timespan}</span>
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center gap-1 text-sm text-theme-secondary hover:text-theme-primary transition-colors duration-200 bg-theme-card hover:bg-theme-hover px-3 py-1 rounded-md border border-theme-border"
-          >
-            <span>{isExpanded ? 'Show less' : 'Show more'}</span>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 ml-7 sm:ml-0">
+          <span className="text-sm text-theme-secondary whitespace-nowrap font-mono">{timespan}</span>
+        </div>
+      </div>
+
+      {(details || description) && (
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="flex items-center gap-1 text-sm text-theme-secondary hover:text-theme-primary transition-all duration-200 mb-3 group"
+        >
+          <span>{isExpanded ? 'Show less' : 'Show more'}</span>
+          <div className="transition-transform duration-200 ease-in-out">
             {isExpanded ? (
               <ChevronUpIcon className="w-4 h-4" />
             ) : (
               <ChevronDownIcon className="w-4 h-4" />
             )}
-          </button>
-        </div>
-      </div>
+          </div>
+        </button>
+      )}
 
-      {/* Collapsible Content */}
-      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
-        }`}>
-        <div className="pt-3 pb-1">
+      {/* Collapsible Content with Fade Effect */}
+      <div
+        className={`transition-all duration-500 ease-in-out overflow-hidden ${isExpanded
+          ? 'max-h-[2000px] opacity-100 transform translate-y-0'
+          : 'max-h-0 opacity-0 transform -translate-y-2'
+          }`}
+      >
+        <div className="pb-3 space-y-3">
           {description && (
-            <p className="text-theme-secondary mb-3">{description}</p>
+            <div className={`transition-all duration-300 delay-100 ${isExpanded ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-2'
+              }`}>
+              <p className="text-theme-secondary text-sm sm:text-base font-body leading-relaxed">
+                {description}
+              </p>
+            </div>
           )}
+
           {details && (
-            <ul className="list-disc list-inside space-y-1 text-theme-secondary ml-4">
-              {details.map((detail, index) => (
-                <li key={index} dangerouslySetInnerHTML={{ __html: detail }} />
-              ))}
-            </ul>
+            <div className={`transition-all duration-300 delay-200 ${isExpanded ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-2'
+              }`}>
+              <ul className="list-disc list-inside space-y-2 text-theme-secondary ml-2 sm:ml-4 text-sm sm:text-base font-body">
+                {details.map((detail, index) => (
+                  <li
+                    key={index}
+                    dangerouslySetInnerHTML={{ __html: detail }}
+                    className="leading-relaxed"
+                  />
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       </div>
@@ -91,11 +130,12 @@ export default function HomePage() {
       timespan: "September 2023 - Ongoing",
       description: "I consulted the following startups:",
       details: [
-        "<strong>Mechanify:</strong> Insuring the 2nd life of EVs",
+        `<strong><a href="https://mechanify.in/" target="_blank" rel="noopener noreferrer" class="underline">Mechanify</a>:</strong> Insuring the 2nd life of EVs`,
         "<strong>Upraised:</strong> AI powered solution to assess talent (Acquired)",
-        "<strong>HexStar Universe:</strong> Full-Stack Space Edtech Platform.",
+        `<strong> <a href="https://hexstaruniverse.com/ " target="_blank" rel="noopener noreferrer" class="underline"> HexStar Universe </a>:</strong> Full-Stack Space Edtech Platform.`,
         "<strong>Stealth:</strong> Leveraging business data to automate Ops, strategies, etc.",
-        "<strong>Stealth:</strong> Innovating Defense for modern combat dynamics."
+        "<strong>Stealth:</strong> Innovating Defense for modern combat dynamics.",
+       `<strong> <a href="https://quantumpickleball.in/ " target="_blank" rel="noopener noreferrer" class="underline"> Quantum Sports </a>:</strong> Sports community platform, enabling players to book sports venues, events, find players, and join games.`,
       ],
       borderColor: "border-green-500"
     },
@@ -106,14 +146,14 @@ export default function HomePage() {
       description: "I did independent research work across Neuro, Vision, and Materials:",
       details: [
         "Diagnosing Neurological disorders like Epilepsy, parkinson with just raw EEG data in seconds. We achieve accuracy as high as 99.5%.",
-        "Image Vectorization Using CLIP for Integration with Large Language Models: A Novel Approach to Enhancing Memorization.",
-        "Machine Learning-Driven Prediction and Simulation of Crystalline Structures for Advanced Ballistic Protection."
+        `Image Vectorization Using CLIP for Integration with Large Language Models: A Novel Approach to Enhancing Memorization. <strong><span style="color:#d97706; font-weight:bold; font-size:1.05em;">[ <u>Soon to be Published</u>]</span></strong>`,
+        `Machine Learning-Driven Prediction and Simulation of Crystalline Structures for Advanced Ballistic Protection. <strong><span style="color:#d97706; font-weight:bold; font-size:1.05em;">[ <u>Soon to be Published</u>]</span></strong>`
       ],
       borderColor: "border-purple-500"
     },
     {
       title: "Associated Innovators",
-      position: "Creator, freelance project",
+      position: "Technology Consultant",
       timespan: "September, 2023 → October, 2023",
       description: "At Associated Innovators, I am building their whole LP system and Portfolio Management system so as to be used by Investors like Suraj Juneja, Mahavir Sharma, Suniel Shetty, etc to keep accountability of their portfolio startups.",
       borderColor: "border-orange-500",
@@ -158,7 +198,7 @@ export default function HomePage() {
       ],
       borderColor: "border-pink-500",
       url: "https://lecturenotes.in/",
-      imageURL: "https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2F0d75d5aa-3d37-4c3e-adca-a424c1c4f04d%2Flecturenotes_logo.jpg?table=block&id=8abaeed6-6422-40d2-8559-03d74f585143&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2"
+      imageURL: "https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2F0d75d5aa-3d37-4c3e-adca-a424c1c4f04d%2Flecturenotes_logo.jpg?table=block&id=8abaeed6-6422-40d2-8559-03d74f585143&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&userId=&cache=v2"
     },
     {
       title: "Audifie",
@@ -182,7 +222,7 @@ export default function HomePage() {
       ],
       borderColor: "border-teal-500",
       url: "https://www.linkedin.com/company/collegeshala-edutech/",
-      imageURL: "https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2F70cacff9-13ce-4393-b21d-b7cfece130c5%2FCS.jpg?table=block&id=550bcb3b-b13f-4b2a-ae5d-0d84388692f9&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2"
+      imageURL: "https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2F70cacff9-13ce-4393-b21d-b7cfece130c5%2FCS.jpg?table=block&id=550bcb3b-b13f-4b2a-ae5d-0d84388692f9&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&userId=&cache=v2"
     },
     {
       title: "Wholmeal",
@@ -207,7 +247,26 @@ export default function HomePage() {
       borderColor: "border-gray-500",
       url: "https://learningwhiletravelling.com/",
       imageURL: "https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2Fa1c7360e-90d4-4911-94e3-8c703de35eca%2Fdownload_(1).jpg?table=block&id=5efc58e4-f91a-4e5b-97d2-f324043ab6d7&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2"
+    },
+    {
+      title: "Pseudo-Lidar",
+      position: "Freelance, Self-Employed",
+      timespan:"September, 2019  → April,2020",
+      description:"Created a moedl that turns a 2D image into a 3D image and then does depth estimation.After doing that every pixel in the 3D image is  replaced by a point thus providing 3D cloud point data without using lidar in any manner . This is huge in terms of costs saving as good lidars by companies like Velodyne cost up to $20,000",
+      borderColor: "border-neon-500",
+      url : "",
+      imageUrl : ""
+    }, 
+    {
+      title:"Face landmark detection",
+      position:"Freelance, Self-Employed",
+      timespan:"september, 2019 → April,2020",
+      description:"created a model using Keras & OpenCV with an accuracy of 94.4% tat helped in detecting Facial Landmakrs like Cheek, ear, Tongue, etc and thus can be used to superimpose with stickers , emojis , etc. ",
+      borderColor:"border-red-500",
+      url:"",
+      imageurl:""
     }
+
   ];
 
   // DevRel experience data
@@ -217,56 +276,64 @@ export default function HomePage() {
       position: "",
       timespan: "2020 - 2021",
       description: "I started the Google Developer Student Club at my College Campus and grew the community from 0 to 1500+ members. I built a core team of 8 to 10 folks and we executed 30+events, 2 Mini-Hackathons & 4 Programs.",
-      borderColor: "border-blue-500"
+      borderColor: "border-blue-500",
+      imageURL: "https://mdfazal.notion.site/image/attachment%3A1ddc4462-0dc8-4d83-ac39-624b245bfce0%3Aimages.png?table=block&id=1bc355ae-6ea1-80f4-a52b-cf4457c02375&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&userId=&cache=v2"
     },
     {
       title: "Google Cloud Facilitator - Program Lead",
       position: "",
       timespan: "2022",
       description: "I was the Google Cloud Facilitator of my City and had to train at least 50 students on GCP. All the trainings were sucessfully finished by me and all the students received their completion badge.",
-      borderColor: "border-green-500"
+      borderColor: "border-green-500",
+      imageURL: "https://mdfazal.notion.site/image/attachment%3A76e25959-864b-4601-9bbe-f397e2381713%3A1650292030943.jpg?table=block&id=1bc355ae-6ea1-8048-84a9-d5aeacee84c6&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&userId=&cache=v2"
     },
     {
       title: "Facebook Developer Circle - Core member",
       position: "",
       timespan: "2021",
       description: "I was the core member of the Facebook Developer Circle under the Lead Sabhyasachi Mukopadhyay. We built the community of 500+ strong developers learning Pytorch and other Meta technologies.",
-      borderColor: "border-purple-500"
+      borderColor: "border-purple-500",
+      imageURL: "https://mdfazal.notion.site/image/attachment%3A5d6420e4-4587-41da-bf16-163435aa4e2d%3Adevelopercirclesfromfacebook_logo.jpg?table=block&id=1bc355ae-6ea1-8097-a64f-dc3d51927dd0&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&userId=&cache=v2"
     },
     {
       title: "Google Developer Group, Kolkata - Core member",
       position: "",
       timespan: "2019 - 2022",
       description: "I was a core member at GDG Kolkata, which was led by Rivu Das and Indranil Dutta. We built this community over three years and expanded it to 40,000+ developers from 100+ companies and 30+ colleges in the city. At GDG we conduct sessions and workshops on Android, Dart, Flutter, Tensorflow (ML), AR, and Web development. Hands-on session is done and one-on-one guidance is given to students who face difficulty in learning or if they are stuck at some bugs.",
-      borderColor: "border-orange-500"
+      borderColor: "border-orange-500",
+      imageURL: "https://mdfazal.notion.site/image/attachment%3A3cfcff19-98b1-4439-a036-9a32f47a27bc%3Aimages_(1).png?table=block&id=1bc355ae-6ea1-80d4-a08d-d6ff77f425c5&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&userId=&cache=v2"
     },
     {
       title: "AWS User Group, Kolkata - Core member",
       position: "",
       timespan: "2019 - 2021",
       description: "I was a core member at AWS user Group Kolkata, wherein we built a community of 8000+ developers and also organised AWS' flagship event AWS Community Day in Kolkata. We trained all of these developers across 20+ AWS services like AWS EC2, S3, DynamoDB etc.",
-      borderColor: "border-red-500"
+      borderColor: "border-red-500",
+      imageURL: "https://mdfazal.notion.site/image/attachment%3A04043df4-d0d5-4fbd-a3c1-28a877610411%3Aimages_(2).png?table=block&id=1bc355ae-6ea1-8076-81ec-e1b42697f213&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&userId=&cache=v2"
     },
     {
       title: "Cloud Native Computing Foundation User Group, Kolkata - Co-Founder",
       position: "",
       timespan: "2019 - 2021",
       description: "I along with Chirag Nayyar started the CNCF Chapter for Kolkata, very quickly we grew it to 3000+ members. We conducted 20+ sessions on Azure, AWS, Kubernetes, Docker etc.",
-      borderColor: "border-indigo-500"
+      borderColor: "border-indigo-500",
+      imageURL: "https://mdfazal.notion.site/image/attachment%3A8936e379-8bb0-49cc-81b8-a55873aa984a%3Acncfugkol_logo.jpg?table=block&id=1bc355ae-6ea1-8027-9993-d25cbd8ad3c9&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&userId=&cache=v2"
     },
     {
       title: "Pie & AI by Deeplearning.ai - Ambassador",
       position: "",
       timespan: "2020 - 2021",
       description: "When Deeplearning AI Community came to Kolkata to open their chapter \"Pie & AI\" for this city, almost 300+ undergrad students applied to be their ambassador. I was choosen out of them to lead the chapter for the city. Under my leadership we executed 15 sessions with 10 of the speakers from overseas and 3 learning tracks. We truly helped 3000+ students to upskill in AI.",
-      borderColor: "border-pink-500"
+      borderColor: "border-pink-500",
+      imageURL: "https://mdfazal.notion.site/image/attachment%3A4a660c10-16c1-4a19-bda6-e37c2b7ebff4%3Aimages.jpg?table=block&id=1bc355ae-6ea1-8015-85aa-ca60e016fd70&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&userId=&cache=v2"
     },
     {
       title: "Lecturenotes Campus Ambassador Program - Co-Founder",
       position: "",
       timespan: "2022 - 2023",
       description: "At Lecturenotes our team built an ambassador program spanning to 1500+ Engineering Campuses in India giving us access to 3 Million Engineering Students pursuing B.Tech.",
-      borderColor: "border-yellow-500"
+      borderColor: "border-yellow-500",
+      imageURL: "https://mdfazal.notion.site/image/attachment%3A97afc72c-f409-4eff-8d2b-ef44dbe89c7a%3Alecturenotes_logo.jpg?table=block&id=1bc355ae-6ea1-8078-b54a-c23a5d7f8526&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&userId=&cache=v2"
     }
   ];
 
@@ -274,34 +341,45 @@ export default function HomePage() {
     <div className="min-h-screen bg-theme-primary transition-colors duration-300">
       <ThemeToggle />
 
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-6 sm:py-12">
         {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-5xl font-bold text-theme-primary mb-6">MD Fazal Mustafa</h1>
+        <div className="mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-theme-primary mb-4 sm:mb-6 font-display tracking-tight">MD Fazal Mustafa</h1>
         </div>
 
         {/* About Me Section */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-theme-primary mb-6">About me:</h2>
-          <div className="space-y-4 text-theme-secondary leading-relaxed">
-            <p>Born in Hazaribagh, grew up in Calcutta.</p>
+        <section className="mb-12 sm:mb-16">
+          <h2 className="text-xl sm:text-2xl font-semibold text-theme-primary mb-4 sm:mb-6 font-display">About me:</h2>
+          <div className="space-y-3 sm:space-y-4 text-theme-secondary leading-relaxed text-sm sm:text-base font-body">
+            <p>Born in <a href="https://www.google.com/search?q=hazaribagh&rlz=1C1UEAD_enIN1172IN1172&oq=ha&gs_lcrp=EgZjaHJvbWUqDggAEEUYJxg7GIAEGIoFMg4IABBFGCcYOxiABBiKBTIGCAEQRRg5MgoIAhAAGLEDGIAEMgoIAxAuGLEDGIAEMg0IBBAuGNQCGLEDGIAEMgYIBRBFGD0yBggGEEUYPDIGCAcQRRg80gEHOTExajBqN6gCALACAA&sourceid=chrome&ie=UTF-8" className="underline">Hazaribagh</a>, grew up in <a href="https://www.google.com/search?q=calcutta&rlz=1C1UEAD_enIN1172IN1172&oq=calcutta+&gs_lcrp=EgZjaHJvbWUqBwgAEAAYjwIyBwgAEAAYjwIyEwgBEC4YrwEYxwEYkQIYgAQYigUyDQgCEAAYgwEYsQMYgAQyBwgDEAAYgAQyCggEEC4YsQMYgAQyBwgFEAAYgAQyDQgGEAAYkQIYgAQYigUyBwgHEAAYgAQyDQgIEAAYkQIYgAQYigUyDQgJEAAYkQIYgAQYigXSAQg1Njg3ajBqOagCBrACAfEFirSiSCwog6LxBYq0okgsKIOi&sourceid=chrome&ie=UTF-8" className='underline'>Calcutta</a> .</p>
             <p>Went to 3 different schools, from Co-ed to all boys, thus have seen both worlds.</p>
             <p>Studied Engineering, coz I love tinkering with stuff.</p>
-            <p>Built & sold 2 companies, 1 failed product & on to my 3rd one now.</p>
-            <p>Consulted 8 companies.</p>
-            <p>Personally, in love with Autonomous systems and robotics since 2019.</p>
+            <p>Built & sold 2 Companies, 1 failed product & on to my 3rd one now.</p>
+            <p>Consulted 8 Companies.</p>
+            <p>Personally, in love with Autonomous systems and Robotics since 2019.</p>
             <p>Building Products, AI & growth is where I thrive.</p>
-            <p>Research work - coming soon.</p>
+            <p>Research work - Coming soon.</p>
             <p>Find my writings here - <a href="https://fazalai.substack.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Substack</a></p>
-            <p>Connect with me - <a href="mailto:contact@fazalmustafa.com" className="text-blue-600 hover:text-blue-800 underline">Email</a> <a href="https://linkedin.com/in/fazalmustafa" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Linkedin</a> <a href="https://twitter.com/fazalmustafa" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Twitter</a></p>
+            <div className="flex items-center flex-wrap gap-3 break-words">
+              <span>Connect with me -</span>
+              <a href="mailto:contact@fazalmustafa.com" className="text-blue-600 hover:text-blue-800 underline">
+                <img src="https://mdfazal.notion.site/icons/mail_green.svg?mode=light" alt="Email" className="w-8 h-8 object-contain rounded" />
+              </a>
+              <a href="https://linkedin.com/in/fazalmustafa" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2Fda7cc18a-a2a7-411d-ae76-c80cfceed2be%2FLinkedIn_icon.svg.png?table=block&id=340898d8-57d5-4a98-ae5f-c6a18e94cdd1&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&userId=&cache=v2" alt="LinkedIn" className="w-6 h-6 object-contain rounded" />
+              </a>
+              <a href="https://twitter.com/fazalmustafa" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2Feae177d2-db14-47a4-a664-d4e6b9ff34dc%2F24twitter.jpg?table=block&id=5d288a61-9b2c-4c28-b6ec-e603de052e9f&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=40&userId=&cache=v2" alt="Twitter" className="w-8 h-8 object-contain rounded" />
+              </a>
+            </div>
           </div>
         </section>
 
         {/* Work Experience Section */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-theme-primary mb-6">Work Experience</h2>
+        <section className="mb-12 sm:mb-16">
+          <h2 className="text-xl sm:text-2xl font-semibold text-theme-primary mb-4 sm:mb-6 font-display">Work Experience</h2>
 
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {workExperiences.map((experience, index) => (
               <ExperienceItem
                 key={index}
@@ -326,10 +404,10 @@ export default function HomePage() {
         </section> */}
 
         {/* DevRel Experience Section */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-theme-primary mb-6">DevRel Experience</h2>
+        <section className="mb-12 sm:mb-16">
+          <h2 className="text-xl sm:text-2xl font-semibold text-theme-primary mb-4 sm:mb-6 font-display">DevRel Experience</h2>
 
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {devrelExperiences.map((experience, index) => (
               <ExperienceItem
                 key={index}
@@ -339,63 +417,66 @@ export default function HomePage() {
                 description={experience.description}
                 details={undefined}
                 borderColor={experience.borderColor}
-                url={undefined} imageURL={undefined} />
+                url={undefined} imageURL={experience.imageURL} />
             ))}
           </div>
         </section>
 
         {/* Feature in Media Section */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-theme-primary mb-6">Feature in Media</h2>
+        <section className="mb-12 sm:mb-16">
+          <h2 className="text-xl sm:text-2xl font-semibold text-theme-primary mb-4 sm:mb-6 font-display">Feature in Media</h2>
 
           <div className="space-y-4">
             <div>
               <div className='flex items-center gap-2 mb-2'>
-                <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2Fc1f9d618-8592-4029-8d4b-b6358166753f%2Funnamed_(1).png?table=block&id=47a7b0f0-7566-4f17-8491-b727fac553c8&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2" alt="" className='w-8 h-8 object-contain rounded' />
-                <h3 className="text-lg font-semibold text-theme-primary">Yourstory</h3>
-              </div>
+                <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2Fc1f9d618-8592-4029-8d4b-b6358166753f%2Funnamed_(1).png?table=block&id=47a7b0f0-7566-4f17-8491-b727fac553c8&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2" alt="" className='w-6 h-6 sm:w-8 sm:h-8 object-contain rounded' />
+                <h3 className="text-base sm:text-lg font-semibold text-theme-primary font-display">Yourstory</h3>
 
-              <p className="text-theme-secondary mb-2">Collegeshala was featured in our seed round of $250K.</p>
-              <a href="https://yourstory.com/companies/collegeshala" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">https://yourstory.com/companies/collegeshala</a>
+
+                <a href="https://yourstory.com/companies/collegeshala" target="_blank" rel="noopener noreferrer" className=" underline text-sm sm:text-base break-all font-body mt-2"> <p className="text-theme-secondary mb-2 text-sm sm:text-base font-body">Collegeshala was featured in our seed round of $250K.</p></a>
+              </div>
             </div>
 
             <div>
               <div className='flex items-center gap-2 mb-2'>
-                <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2F7a4f6fd8-4cbb-437d-9200-57e625692c6d%2F2141.png?table=block&id=e8a5dffc-7542-4a37-ab62-ced082938216&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2" alt="" className='w-8 h-8 object-contain rounded' />
-<h3 className='text-lg font-semibold text-theme-primary'>Inc</h3>
+                <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2F7a4f6fd8-4cbb-437d-9200-57e625692c6d%2F2141.png?table=block&id=e8a5dffc-7542-4a37-ab62-ced082938216&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2" alt="" className='w-6 h-6 sm:w-8 sm:h-8 object-contain rounded' />
+                <h3 className='text-base sm:text-lg font-semibold text-theme-primary font-display'> Inc 42</h3>
+
+                <a href="https://inc42.com/buzz/edtech-startup-lecturenotes-acquires-collegeshala-for-an-undisclosed-amount/" target="_blank" rel="noopener noreferrer" className=" underline text-sm sm:text-base break-all font-body mt-2"><p className="text-theme-secondary mb-2 text-sm sm:text-base font-body">Collegeshala getting acquired by Lecturenotes.</p></a>
               </div>
-              <p className="text-theme-secondary mb-2">Collegeshala getting acquired by Lecturenotes.</p>
-              <a href="https://inc42.com/buzz/edtech-startup-lecturenotes-acquires-collegeshala-for-an-undisclosed-amount/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">https://inc42.com/buzz/edtech-startup-lecturenotes-acquires-collegeshala-for-an-undisclosed-amount/</a>
             </div>
 
             <div>
               <div className='flex items-center gap-2 mb-2'>
-                <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2F819d2305-e028-47a8-8c49-1961389a57b3%2Fdownload_(1).png?table=block&id=1d7c1277-4186-4bc7-bef9-e971b4b42dab&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2" alt="" className='w-8 h-8 object-contain rounded' />
+                <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2F819d2305-e028-47a8-8c49-1961389a57b3%2Fdownload_(1).png?table=block&id=1d7c1277-4186-4bc7-bef9-e971b4b42dab&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2" alt="" className='w-6 h-6 sm:w-8 sm:h-8 object-contain rounded' />
 
-                <h3 className="text-lg font-semibold text-theme-primary">Entrackr</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-theme-primary font-display">Entrackr</h3>
+
+                <a href="https://entrackr.com/2022/03/lecturenotes-raises-2-5-mn-in-pre-series-a-round/" target="_blank" rel="noopener noreferrer" className=" underline text-sm sm:text-base break-all font-body mt-2"> <p className="text-theme-secondary mb-2 text-sm sm:text-base font-body">When we raised a $2.5 Million Pre-Series round for Lecturenotes.</p></a>
               </div>
-              <p className="text-theme-secondary mb-2">When we raised a $2.5 Million Pre-Series round for Lecturenotes.</p>
-              <a href="https://entrackr.com/2022/03/lecturenotes-raises-2-5-mn-in-pre-series-a-round/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">https://entrackr.com/2022/03/lecturenotes-raises-2-5-mn-in-pre-series-a-round/</a>
             </div>
           </div>
         </section>
 
         {/* Contact Section */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-theme-primary mb-6">Contact</h2>
-          <p className="text-theme-secondary">I am mostly active on Email, Twitter, and Linkedin. Email is preferred but I do respond to DMs quickly.</p>
+        <section className="mb-12 sm:mb-16">
+          <h2 className="text-xl sm:text-2xl font-semibold text-theme-primary mb-4 sm:mb-6 font-display">Contact</h2>
+          <p className="text-theme-secondary text-sm sm:text-base font-body">
+            I am mostly active on  <a href=" fazal@heva.ai" className='underline'>Email</a>  ,
+            <a href="https://x.com/the_mdfazal  " className='underline'>Twitter</a>, and  <a href="https://www.linkedin.com/in/md-fazal-mustafa-ba5265129/" className='underline'>Linkedin</a> . Email is preferred but I do respond to DMs quickly.</p>
         </section>
 
         {/* SubStack Embed Section */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-semibold text-theme-primary mb-6">SubStack</h2>
-          <div className="bg-theme-card border border-theme-card rounded-lg p-6">
+        <section className="mb-12 sm:mb-16">
+          <h2 className="text-xl sm:text-2xl font-semibold text-theme-primary mb-4 sm:mb-6 font-display">SubStack</h2>
+          <div className="bg-theme-card border border-theme-card rounded-lg p-3 sm:p-6">
             <iframe
               src="https://fazalai.substack.com/embed"
               width="100%"
-              height="400"
+              height="250"
               style={{ border: 'none' }}
               title="SubStack Embed"
+              className="sm:h-[400px]"
             />
           </div>
         </section>
