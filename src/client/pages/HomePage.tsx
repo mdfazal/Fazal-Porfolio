@@ -362,13 +362,13 @@ export default function HomePage() {
             <p>Find my writings here - <a href="https://fazalai.substack.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Substack</a></p>
             <div className="flex items-center flex-wrap gap-3 break-words">
               <span>Connect with me -</span>
-              <a href="mailto:contact@fazalmustafa.com" className="text-blue-600 hover:text-blue-800 underline">
+              <a href="mailto:fazal@heva.ai" className="text-blue-600 hover:text-blue-800 underline">
                 <img src="https://mdfazal.notion.site/icons/mail_green.svg?mode=light" alt="Email" className="w-8 h-8 object-contain rounded" />
               </a>
-              <a href="https://linkedin.com/in/fazalmustafa" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+              <a href="https://www.linkedin.com/in/md-fazal-mustafa/ " target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
                 <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2Fda7cc18a-a2a7-411d-ae76-c80cfceed2be%2FLinkedIn_icon.svg.png?table=block&id=340898d8-57d5-4a98-ae5f-c6a18e94cdd1&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&userId=&cache=v2" alt="LinkedIn" className="w-6 h-6 object-contain rounded" />
               </a>
-              <a href="https://twitter.com/fazalmustafa" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+              <a href="https://x.com/the_mdfazal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
                 <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2Feae177d2-db14-47a4-a664-d4e6b9ff34dc%2F24twitter.jpg?table=block&id=5d288a61-9b2c-4c28-b6ec-e603de052e9f&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=40&userId=&cache=v2" alt="Twitter" className="w-8 h-8 object-contain rounded" />
               </a>
             </div>
