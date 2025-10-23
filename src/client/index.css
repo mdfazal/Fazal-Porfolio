@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,200..800;1,200..800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +10,9 @@
   --text-secondary: #4b5563;
   --card-bg: #ffffff;
   --card-border: #e5e7eb;
+  --link-hover: #3d3d3a;
+  --link-underline: #1f1e1d;
+  --link-underline-hover: #3d3d3a;
 }
 
 [data-theme="dark"] {
@@ -16,29 +21,37 @@
   --text-secondary: #d1d5db;
   --card-bg: #2d2c2b;
   --card-border: #404040;
+  --link-hover: #d1cfc5;
+  --link-underline: #f0eee6;
+  --link-underline-hover: #d1cfc5;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-primary);
+  font-size: 1.25rem;
+  line-height: 1.6;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-/* Custom font classes */
+/* Typography classes matching Dario's system */
 .font-display {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: -0.025em;
+  line-height: 1.1;
+  letter-spacing: 0em;
 }
 
 .font-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-primary);
   font-weight: 400;
   line-height: 1.6;
+  letter-spacing: 0em;
 }
 
 .font-mono {
@@ -47,14 +60,169 @@ body {
   letter-spacing: 0.025em;
 }
 
-/* Mobile-specific improvements */
-@media (max-width: 640px) {
-  .font-display {
-    letter-spacing: -0.02em;
+/* Heading styles matching Dario's typography */
+h1, .h1 {
+  font-family: var(--font-primary);
+  font-size: 3.1em;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 0.2em;
+}
+
+h2, .h2 {
+  font-family: var(--font-primary);
+  font-size: 1.6em;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+
+h3, .h3 {
+  font-family: var(--font-primary);
+  font-size: 1.2em;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 0.7em;
+}
+
+/* Paragraph styles */
+p {
+  margin-bottom: 1em;
+  font-size: 1.25rem;
+}
+
+.paragraph-lg {
+  font-size: 1.1em;
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+.paragraph-sm {
+  font-size: 0.9em;
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+/* Enhanced Link Styling with Proper Hover Effects */
+a {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 0.08em;
+  text-decoration-color: var(--link-underline);
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration-color: var(--link-underline-hover);
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.1em;
+}
+
+/* Special styling for links in different contexts */
+.link-subtle {
+  text-decoration-color: transparent;
+  border-bottom: 1px solid var(--link-underline);
+  transition: all 0.25s ease-in-out;
+  text-decoration: none;
+}
+
+.link-subtle:hover {
+  border-bottom-color: var(--link-underline-hover);
+  border-bottom-width: 2px;
+  color: var(--link-hover);
+  transform: translateY(-1px);
+}
+
+/* Enhanced underline animation */
+.link-animated {
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.link-animated::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--link-underline);
+  transition: width 0.3s ease-in-out;
+}
+
+.link-animated:hover::after {
+  width: 100%;
+  background-color: var(--link-underline-hover);
+}
+
+.link-animated:hover {
+  color: var(--link-hover);
+}
+
+/* Social media links styling */
+.social-link {
+  transition: all 0.2s ease-in-out;
+  filter: opacity(0.8);
+}
+
+.social-link:hover {
+  filter: opacity(1);
+  transform: translateY(-2px);
+}
+
+/* Experience item links */
+.experience-title-link {
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.experience-title-link:hover {
+  color: #3b82f6;
+  text-decoration: underline;
+  text-underline-offset: 0.1em;
+  text-decoration-thickness: 0.1em;
+}
+
+/* Mobile responsive typography */
+@media (max-width: 991px) {
+  body {
+    font-size: 1.25rem;
+  }
+  
+  h1, .h1 {
+    font-size: 3.1em;
+  }
+  
+  h2, .h2 {
+    font-size: 1.6em;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 1.25rem;
+  }
+  
+  h1, .h1 {
+    font-size: 2.4em;
+  }
+  
+  h2, .h2 {
+    font-size: 1.6em;
   }
   
   .font-body {
     line-height: 1.7;
+  }
+}
+
+@media (max-width: 479px) {
+  body {
+    font-size: 1.25rem;
   }
 }
 

@@ -351,7 +351,7 @@ export default function HomePage() {
         <section className="mb-12 sm:mb-16">
           <h2 className="text-xl sm:text-2xl font-semibold text-theme-primary mb-4 sm:mb-6 font-display">About me:</h2>
           <div className="space-y-3 sm:space-y-4 text-theme-secondary leading-relaxed text-sm sm:text-base font-body">
-            <p>Born in <a href="https://www.google.com/search?q=hazaribagh&rlz=1C1UEAD_enIN1172IN1172&oq=ha&gs_lcrp=EgZjaHJvbWUqDggAEEUYJxg7GIAEGIoFMg4IABBFGCcYOxiABBiKBTIGCAEQRRg5MgoIAhAAGLEDGIAEMgoIAxAuGLEDGIAEMg0IBBAuGNQCGLEDGIAEMgYIBRBFGD0yBggGEEUYPDIGCAcQRRg80gEHOTExajBqN6gCALACAA&sourceid=chrome&ie=UTF-8" className="underline">Hazaribagh</a>, grew up in <a href="https://www.google.com/search?q=calcutta&rlz=1C1UEAD_enIN1172IN1172&oq=calcutta+&gs_lcrp=EgZjaHJvbWUqBwgAEAAYjwIyBwgAEAAYjwIyEwgBEC4YrwEYxwEYkQIYgAQYigUyDQgCEAAYgwEYsQMYgAQyBwgDEAAYgAQyCggEEC4YsQMYgAQyBwgFEAAYgAQyDQgGEAAYkQIYgAQYigUyBwgHEAAYgAQyDQgIEAAYkQIYgAQYigUyDQgJEAAYkQIYgAQYigXSAQg1Njg3ajBqOagCBrACAfEFirSiSCwog6LxBYq0okgsKIOi&sourceid=chrome&ie=UTF-8" className='underline'>Calcutta</a> .</p>
+            <p>Born in <a href="https://www.google.com/search?q=hazaribagh&rlz=1C1UEAD_enIN1172IN1172&oq=ha&gs_lcrp=EgZjaHJvbWUqDggAEEUYJxg7GIAEGIoFMg4IABBFGCcYOxiABBiKBTIGCAEQRRg5MgoIAhAAGLEDGIAEMgoIAxAuGLEDGIAEMg0IBBAuGNQCGLEDGIAEMgYIBRBFGD0yBggGEEUYPDIGCAcQRRg80gEHOTExajBqN6gCALACAA&sourceid=chrome&ie=UTF-8" className="link-subtle">Hazaribagh</a>, grew up in <a href="https://www.google.com/search?q=calcutta&rlz=1C1UEAD_enIN1172IN1172&oq=calcutta+&gs_lcrp=EgZjaHJvbWUqBwgAEAAYjwIyBwgAEAAYjwIyEwgBEC4YrwEYxwEYkQIYgAQYigUyDQgCEAAYgwEYsQMYgAQyBwgDEAAYgAQyCggEEC4YsQMYgAQyBwgFEAAYgAQyDQgGEAAYkQIYgAQYigUyBwgHEAAYgAQyDQgIEAAYkQIYgAQYigUyDQgJEAAYkQIYgAQYigXSAQg1Njg3ajBqOagCBrACAfEFirSiSCwog6LxBYq0okgsKIOi&sourceid=chrome&ie=UTF-8" className='link-subtle'>Calcutta</a> .</p>
             <p>Went to 3 different schools, from Co-ed to all boys, thus have seen both worlds.</p>
             <p>Studied Engineering, coz I love tinkering with stuff.</p>
             <p>Built & sold 2 Companies, 1 failed product & on to my 3rd one now.</p>
@@ -359,16 +359,16 @@ export default function HomePage() {
             <p>Personally, in love with Autonomous systems and Robotics since 2019.</p>
             <p>Building Products, AI & growth is where I thrive.</p>
             <p>Research work - Coming soon.</p>
-            <p>Find my writings here - <a href="https://fazalai.substack.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Substack</a></p>
+            <p>Find my writings here - <a href="https://fazalai.substack.com" target="_blank" rel="noopener noreferrer" className="link-animated">Substack</a></p>
             <div className="flex items-center flex-wrap gap-3 break-words">
               <span>Connect with me -</span>
-              <a href="mailto:fazal@heva.ai" className="text-blue-600 hover:text-blue-800 underline">
+              <a href="mailto:fazal@heva.ai" className="social-link">
                 <img src="https://mdfazal.notion.site/icons/mail_green.svg?mode=light" alt="Email" className="w-8 h-8 object-contain rounded" />
               </a>
-              <a href="https://www.linkedin.com/in/md-fazal-mustafa/ " target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+              <a href="https://www.linkedin.com/in/md-fazal-mustafa/ " target="_blank" rel="noopener noreferrer" className="social-link">
                 <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2Fda7cc18a-a2a7-411d-ae76-c80cfceed2be%2FLinkedIn_icon.svg.png?table=block&id=340898d8-57d5-4a98-ae5f-c6a18e94cdd1&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&userId=&cache=v2" alt="LinkedIn" className="w-6 h-6 object-contain rounded" />
               </a>
-              <a href="https://x.com/the_mdfazal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+              <a href="https://x.com/the_mdfazal" target="_blank" rel="noopener noreferrer" className="social-link">
                 <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2Feae177d2-db14-47a4-a664-d4e6b9ff34dc%2F24twitter.jpg?table=block&id=5d288a61-9b2c-4c28-b6ec-e603de052e9f&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=40&userId=&cache=v2" alt="Twitter" className="w-8 h-8 object-contain rounded" />
               </a>
             </div>
@@ -431,29 +431,30 @@ export default function HomePage() {
               <div className='flex items-center gap-2 mb-2'>
                 <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2Fc1f9d618-8592-4029-8d4b-b6358166753f%2Funnamed_(1).png?table=block&id=47a7b0f0-7566-4f17-8491-b727fac553c8&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2" alt="" className='w-6 h-6 sm:w-8 sm:h-8 object-contain rounded' />
                 <h3 className="text-base sm:text-lg font-semibold text-theme-primary font-display">Yourstory</h3>
-
-
-                <a href="https://yourstory.com/companies/collegeshala" target="_blank" rel="noopener noreferrer" className=" underline text-sm sm:text-base break-all font-body mt-2"> <p className="text-theme-secondary mb-2 text-sm sm:text-base font-body">Collegeshala was featured in our seed round of $250K.</p></a>
               </div>
+              <a href="https://yourstory.com/companies/collegeshala" target="_blank" rel="noopener noreferrer" className="link-animated"> 
+                <p className="text-theme-secondary mb-2 text-sm sm:text-base font-body">Collegeshala was featured in our seed round of $250K.</p>
+              </a>
             </div>
 
             <div>
               <div className='flex items-center gap-2 mb-2'>
                 <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2F7a4f6fd8-4cbb-437d-9200-57e625692c6d%2F2141.png?table=block&id=e8a5dffc-7542-4a37-ab62-ced082938216&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2" alt="" className='w-6 h-6 sm:w-8 sm:h-8 object-contain rounded' />
                 <h3 className='text-base sm:text-lg font-semibold text-theme-primary font-display'> Inc 42</h3>
-
-                <a href="https://inc42.com/buzz/edtech-startup-lecturenotes-acquires-collegeshala-for-an-undisclosed-amount/" target="_blank" rel="noopener noreferrer" className=" underline text-sm sm:text-base break-all font-body mt-2"><p className="text-theme-secondary mb-2 text-sm sm:text-base font-body">Collegeshala getting acquired by Lecturenotes.</p></a>
               </div>
+              <a href="https://inc42.com/buzz/edtech-startup-lecturenotes-acquires-collegeshala-for-an-undisclosed-amount/" target="_blank" rel="noopener noreferrer" className="link-animated">
+                <p className="text-theme-secondary mb-2 text-sm sm:text-base font-body">Collegeshala getting acquired by Lecturenotes.</p>
+              </a>
             </div>
 
             <div>
               <div className='flex items-center gap-2 mb-2'>
                 <img src="https://mdfazal.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fd5f23efc-cabc-4a6a-b64d-138d0ef7e7d4%2F819d2305-e028-47a8-8c49-1961389a57b3%2Fdownload_(1).png?table=block&id=1d7c1277-4186-4bc7-bef9-e971b4b42dab&spaceId=d5f23efc-cabc-4a6a-b64d-138d0ef7e7d4&width=60&freeze=true&userId=&cache=v2" alt="" className='w-6 h-6 sm:w-8 sm:h-8 object-contain rounded' />
-
                 <h3 className="text-base sm:text-lg font-semibold text-theme-primary font-display">Entrackr</h3>
-
-                <a href="https://entrackr.com/2022/03/lecturenotes-raises-2-5-mn-in-pre-series-a-round/" target="_blank" rel="noopener noreferrer" className=" underline text-sm sm:text-base break-all font-body mt-2"> <p className="text-theme-secondary mb-2 text-sm sm:text-base font-body">When we raised a $2.5 Million Pre-Series round for Lecturenotes.</p></a>
               </div>
+              <a href="https://entrackr.com/2022/03/lecturenotes-raises-2-5-mn-in-pre-series-a-round/" target="_blank" rel="noopener noreferrer" className="link-animated"> 
+                <p className="text-theme-secondary mb-2 text-sm sm:text-base font-body">When we raised a $2.5 Million Pre-Series round for Lecturenotes.</p>
+              </a>
             </div>
           </div>
         </section>
@@ -462,8 +463,9 @@ export default function HomePage() {
         <section className="mb-12 sm:mb-16">
           <h2 className="text-xl sm:text-2xl font-semibold text-theme-primary mb-4 sm:mb-6 font-display">Contact</h2>
           <p className="text-theme-secondary text-sm sm:text-base font-body">
-            I am mostly active on  <a href=" fazal@heva.ai" className='underline'>Email</a>  ,
-            <a href="https://x.com/the_mdfazal  " className='underline'>Twitter</a>, and  <a href="https://www.linkedin.com/in/md-fazal-mustafa-ba5265129/" className='underline'>Linkedin</a> . Email is preferred but I do respond to DMs quickly.</p>
+            I am mostly active on <a href="mailto:fazal@heva.ai" className='link-subtle'>Email</a>, 
+            <a href="https://x.com/the_mdfazal" target="_blank" rel="noopener noreferrer" className='link-subtle ml-1'>Twitter</a>, and <a href="https://www.linkedin.com/in/md-fazal-mustafa-ba5265129/" target="_blank" rel="noopener noreferrer" className='link-subtle ml-1'>Linkedin</a>. Email is preferred but I do respond to DMs quickly.
+          </p>
         </section>
 
         {/* SubStack Embed Section */}
