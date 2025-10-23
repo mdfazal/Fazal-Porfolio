@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,200..800;1,200..800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,10 +10,9 @@
   --text-secondary: #4b5563;
   --card-bg: #ffffff;
   --card-border: #e5e7eb;
-  
-  /* Typography variables matching Dario's site */
-  --font-primary: "Newsreader", "Times New Roman", serif;
-  --font-display: "Newsreader", "Times New Roman", serif;
+  --link-hover: #3d3d3a;
+  --link-underline: #1f1e1d;
+  --link-underline-hover: #3d3d3a;
 }
 
 [data-theme="dark"] {
@@ -22,6 +21,9 @@
   --text-secondary: #d1d5db;
   --card-bg: #2d2c2b;
   --card-border: #404040;
+  --link-hover: #d1cfc5;
+  --link-underline: #f0eee6;
+  --link-underline-hover: #d1cfc5;
 }
 
 body {
@@ -101,17 +103,88 @@ p {
   margin-bottom: 1em;
 }
 
-/* Link styles matching Dario's site */
+/* Enhanced Link Styling with Proper Hover Effects */
 a {
   color: var(--text-primary);
-  text-underline-offset: 0.1em;
   text-decoration: underline;
+  text-underline-offset: 0.15em;
   text-decoration-thickness: 0.08em;
-  transition: color 0.3s ease;
+  text-decoration-color: var(--link-underline);
+  transition: all 0.2s ease-in-out;
+  position: relative;
 }
 
 a:hover {
-  color: var(--text-secondary);
+  color: var(--link-hover);
+  text-decoration-color: var(--link-underline-hover);
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.1em;
+}
+
+/* Special styling for links in different contexts */
+.link-subtle {
+  text-decoration-color: transparent;
+  border-bottom: 1px solid var(--link-underline);
+  transition: all 0.25s ease-in-out;
+  text-decoration: none;
+}
+
+.link-subtle:hover {
+  border-bottom-color: var(--link-underline-hover);
+  border-bottom-width: 2px;
+  color: var(--link-hover);
+  transform: translateY(-1px);
+}
+
+/* Enhanced underline animation */
+.link-animated {
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.link-animated::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--link-underline);
+  transition: width 0.3s ease-in-out;
+}
+
+.link-animated:hover::after {
+  width: 100%;
+  background-color: var(--link-underline-hover);
+}
+
+.link-animated:hover {
+  color: var(--link-hover);
+}
+
+/* Social media links styling */
+.social-link {
+  transition: all 0.2s ease-in-out;
+  filter: opacity(0.8);
+}
+
+.social-link:hover {
+  filter: opacity(1);
+  transform: translateY(-2px);
+}
+
+/* Experience item links */
+.experience-title-link {
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.experience-title-link:hover {
+  color: #3b82f6;
+  text-decoration: underline;
+  text-underline-offset: 0.1em;
+  text-decoration-thickness: 0.1em;
 }
 
 /* Mobile responsive typography */
